@@ -1,0 +1,8 @@
+* {
+	font-family: 'Roboto', sans-serif;
+}
+.bordecito {
+	background-color: #E6E9D2;
+	padding: 5px 5px 5px 5px;
+	border-radius: 5px;
+}
