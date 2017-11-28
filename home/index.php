@@ -57,9 +57,13 @@ session_start(); ?>
 </ul>
 <?php 
 include ('includes/dbconnect.php');
-$notificacionQuery = "SELECT observaciones_login FROM prestador WHERE cuit='".$_SESSION['cuit']."'"; 
+$notificacionQuery = "SELECT * FROM prestador WHERE cuit='".$_SESSION['cuit']."'"; 
 $notificacionResult = pg_query($con, $notificacionQuery);
 $notificacion = pg_fetch_assoc($notificacionResult);
+$_SESSION['tipodniprestador'] =  $notificacion['tipo_doc_prestador'];
+$_SESSION['nrodniprestador'] =  $notificacion['nro_doc_prestador'];
+$_SESSION['tipodnientidad'] =  $notificacion['tipo_doc_ent_liq_prest'];
+$_SESSION['nrodnientidad'] =  $notificacion['nro_doc_ent_liq_prest'];
 if ($notificacion['observaciones_login'] == null) {
  echo "<div class='card-header mt-3 text-center'>";
  echo "<h1>Bienvenido</h1>";

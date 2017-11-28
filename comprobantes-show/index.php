@@ -81,17 +81,29 @@ session_start(); ?>
 
 </div>
 
-
-<?php 
+<table class="table table-sm">
+  <?php 
 include '../includes/dbconnect.php';
 if (isset($_POST['submit'])) {
   $mes = $_POST['mesperiodo'];
   $anio = $_POST['anioperiodo'];
-  $comprobanteQuery = "SELECT * FROM det_lote_entidad_liq_prest WHERE mes_presentacion=$mes AND anio_presentacion=$anio";
-  
-}
+  $comprobanteQuery = "SELECT * FROM liq_entidad_liq_prest WHERE nro_doc_ent_liq_prest='".$_SESSION['cuit']."' ORDER BY fecha_liquidacion DESC";
+  $comprobanteResult = pg_query($con, $comprobanteQuery);
+  while ($comprobantes = pg_fetch_row($comprobanteResult)) { ?>
+ <tr>
+ <?php foreach ($comprobantes as $comprobante) { ?>
+    <td>
+      <?php //echo $comprobante; ?>
+    </td>
+    <?php } ?>
+  </tr>
+  <?php } } ?>
+</table>
 
-?>
+<?php pg_close($con); 
+$arr = get_defined_vars();
+print_r(array_keys(get_defined_vars()));
+print_r($arr["_SESSION"]);?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
