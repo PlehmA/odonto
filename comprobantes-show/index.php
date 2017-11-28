@@ -87,7 +87,7 @@ include '../includes/dbconnect.php';
 if (isset($_POST['submit'])) {
   $mes = $_POST['mesperiodo'];
   $anio = $_POST['anioperiodo'];
-  $comprobanteQuery = "SELECT * FROM liq_entidad_liq_prest WHERE nro_doc_ent_liq_prest='".$_SESSION['cuit']."' ORDER BY fecha_liquidacion DESC";
+  $comprobanteQuery = "SELECT * FROM liq_entidad_liq_prest WHERE nro_doc_ent_liq_prest='27176379540' ORDER BY fecha_liquidacion DESC";
   $comprobanteResult = pg_query($con, $comprobanteQuery);
   while ($comprobantes = pg_fetch_row($comprobanteResult)) { ?>
  <tr>
