@@ -66,8 +66,6 @@ $_SESSION['nrodniprestador'] =  $notificacion['nro_doc_prestador'];
 $_SESSION['tipodnientidad'] =  $notificacion['tipo_doc_ent_liq_prest'];
 $_SESSION['nrodnientidad'] =  $notificacion['nro_doc_ent_liq_prest'];
 
-echo $_SESSION['tipodniprestador'].$_SESSION['nrodniprestador'].$_SESSION['tipodnientidad'].$_SESSION['nrodnientidad'];
-
 if ($notificacion['observaciones_login'] == null) {
  echo "<div class='card-header mt-3 text-center'>";
  echo "<h1>Bienvenido</h1>";

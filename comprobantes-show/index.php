@@ -81,29 +81,48 @@ session_start(); ?>
 
 </div>
 
-<table class="table table-sm">
-  <?php 
-include '../includes/dbconnect.php';
+<div class="container">
+  <table class="table table-sm">
+  <thead>
+    <tr>
+      <th>Comprobante</th>
+      <th>Fecha comprobante</th>
+      <th>Mes presentación</th>
+      <th>Año presentación</th>
+      <th>Monto exento</th>
+      <th>Monto gravado</th>
+      <th>Monto I.V.A.</th>
+      <th>Total</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<?php include '../includes/dbconnect.php';
 if (isset($_POST['submit'])) {
   $mes = $_POST['mesperiodo'];
   $anio = $_POST['anioperiodo'];
-  $comprobanteQuery = "SELECT * FROM liq_entidad_liq_prest WHERE nro_doc_ent_liq_prest='27176379540' ORDER BY fecha_liquidacion DESC";
-  $comprobanteResult = pg_query($con, $comprobanteQuery);
-  while ($comprobantes = pg_fetch_row($comprobanteResult)) { ?>
+  $comprobanteQuery = "SELECT * FROM liq_entidad_liq_prest WHERE nro_doc_ent_liq_prest=".$_SESSION['nrodnientidad']." AND mes_presentacion=$mes AND ano_presentacion=$anio";
+  $comprobanteResult = pg_query($con, $comprobanteQuery); ?>
+ <?php while ($comprobantes = pg_fetch_array($comprobanteResult, null, PGSQL_ASSOC)) { ?>
  <tr>
- <?php foreach ($comprobantes as $comprobante) { ?>
-    <td>
-      <?php //echo $comprobante; ?>
-    </td>
-    <?php } ?>
+   <td><?php echo str_pad($comprobantes[''], 4, "0", STR_PAD_LEFT); ?></td>
+   <td><?php echo $comprobantes['fecha_liquidacion']; ?></td>
+   <td><?php echo $comprobantes['mes_presentacion']; ?></td>
+   <td><?php echo $comprobantes['ano_presentacion']; ?></td>
+   <td><?php echo $comprobantes['']; ?></td>
+   <td><?php echo $comprobantes['']; ?></td>
+   <td><?php echo $comprobantes['']; ?></td>
+   <td><?php echo $comprobantes['']; ?></td>
+   <td><button class="btn">Imprimir</button></td>
   </tr>
-  <?php } } ?>
+  <?php } ?> <!-- TERMINA LA CONDICION WHILE -->
+ 
+<?php } ?> <!-- TERMINA LA CONDICION IF -->
+<?php pg_close($con); ?>
+ </tbody>
 </table>
-
-<?php pg_close($con); 
-$arr = get_defined_vars();
-print_r(array_keys(get_defined_vars()));
-print_r($arr["_SESSION"]);?>
+</div>
+ 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
