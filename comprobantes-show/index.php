@@ -101,18 +101,18 @@ session_start(); ?>
 if (isset($_POST['submit'])) {
   $mes = $_POST['mesperiodo'];
   $anio = $_POST['anioperiodo'];
-  $comprobanteQuery = "SELECT * FROM liq_entidad_liq_prest WHERE nro_doc_ent_liq_prest=".$_SESSION['nrodnientidad']." AND mes_presentacion=$mes AND ano_presentacion=$anio";
+  $comprobanteQuery = "SELECT * FROM DET_COMP_ENTIDAD_LIQ_PREST A INNER JOIN COMP_ENTIDAD_LIQ_PREST C ON A.TIPO_DOC_ENT_LIQ_PREST = C.TIPO_DOC_ENT_LIQ_PREST AND A.NRO_DOC_ENT_LIQ_PREST = C.NRO_DOC_ENT_LIQ_PREST AND A.NRO_LOTE_ENTIDAD_LIQ_PREST = C.NRO_LOTE_ENTIDAD_LIQ_PREST AND A.NRO_COMP = C.NRO_COMP AND C.ANO_PRESENTACION=$anio AND C.MES_PRESENTACION=$mes AND A.LIQUIDADO='S' AND A.NRO_DOC_ENT_LIQ_PREST=".$_SESSION['nrodnientidad']." AND A.CTRL_TASA_USO='S'";
   $comprobanteResult = pg_query($con, $comprobanteQuery); ?>
  <?php while ($comprobantes = pg_fetch_array($comprobanteResult, null, PGSQL_ASSOC)) { ?>
  <tr>
-   <td><?php echo str_pad($comprobantes[''], 4, "0", STR_PAD_LEFT); ?></td>
+   <td><?php echo $comprobantes['tipo_comp']." - ".$comprobantes['letra_comp']." ".str_pad($comprobantes['nro_pto_vta_comp'], 4, "0", STR_PAD_LEFT)."-".str_pad($comprobantes['nro_comp'], 8, "0", STR_PAD_LEFT); ?></td>
    <td><?php echo $comprobantes['fecha_liquidacion']; ?></td>
    <td><?php echo $comprobantes['mes_presentacion']; ?></td>
    <td><?php echo $comprobantes['ano_presentacion']; ?></td>
-   <td><?php echo $comprobantes['']; ?></td>
-   <td><?php echo $comprobantes['']; ?></td>
-   <td><?php echo $comprobantes['']; ?></td>
-   <td><?php echo $comprobantes['']; ?></td>
+   <td><?php echo $comprobantes['total_liquidado_exento']; ?></td>
+   <td><?php echo $comprobantes['total_liquidado_gravado']; ?></td>
+   <td><?php echo $comprobantes['total_liquidado_iva']; ?></td>
+   <td><?php echo $comprobantes['total']; ?></td>
    <td><button class="btn">Imprimir</button></td>
   </tr>
   <?php } ?> <!-- TERMINA LA CONDICION WHILE -->

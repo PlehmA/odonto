@@ -218,10 +218,10 @@
       <?php } ?>
     <tr>
       <td><input type="date" class="form-control" value="<?php date_default_timezone_set('America/Argentina/Buenos_Aires'); echo date('Y-m-d'); ?>" name="fechaprestacion" id="fechaprestacion"></td>
-      <td><input type="text" class="form-control" id="bus" name="codigoprest" onkeyup="loadXMLDoc()" autocomplete="off" required></td>
+      <td><input type="text" class="form-control" id="bus" name="codigoprest" onkeyup="loadXMLDoc()" autocomplete="off" required placeholder="Ej... 01.01"></td>
       <td class="w-25"><div id="myDiv" class="text-center"></div></td>
       <td><input type="number" id="cantidad" class="form-control" name="cantidad" placeholder="1"></td>
-      <td><input type="number" id="piezanum" class="form-control" name="piezanum"></td>
+      <td><input type="text" id="piezanum" class="form-control" name="piezanum"></td>
       <td><input type="checkbox" id="carad" class="custom-checkbox" name="carad" value="S"></td>
       <td><input type="checkbox" id="caraio" class="custom-checkbox" name="caraio" value="S"></td>
       <td><input type="checkbox" id="caram" class="custom-checkbox" name="caram" value="S"></td>
