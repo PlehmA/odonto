@@ -5,7 +5,10 @@ include ('includes/dbconnect.php');
 session_start();
 
 
-$comproQuery = "SELECT C.nro_pto_vta_comp, C.tipo_comp, C.letra_comp, C.nro_comp, C.fecha_comp, C.mes_presentacion, C.ano_presentacion, C.monto_exento, C.monto_gravado, C.monto_iva, C.total FROM COMP_ENTIDAD_LIQ_PREST C INNER JOIN DET_COMP_ENTIDAD_LIQ_PREST A ON A.TIPO_DOC_ENT_LIQ_PREST = C.TIPO_DOC_ENT_LIQ_PREST AND A.NRO_DOC_ENT_LIQ_PREST = C.NRO_DOC_ENT_LIQ_PREST AND A.NRO_LOTE_ENTIDAD_LIQ_PREST = C.NRO_LOTE_ENTIDAD_LIQ_PREST AND A.NRO_COMP = C.NRO_COMP AND C.ANO_PRESENTACION=$anio AND C.MES_PRESENTACION=$mes AND A.LIQUIDADO='S' AND A.NRO_DOC_ENT_LIQ_PREST=".$_SESSION['nrodnientidad']." AND A.ctrl_tasa_uso='S'";
+$comproQuery = "SELECT C.nro_pto_vta_comp, C.tipo_comp, C.letra_comp, C.nro_comp, C.fecha_comp, C.mes_presentacion, C.ano_presentacion, C.monto_exento, C.monto_gravado, C.monto_iva, C.total FROM COMP_ENTIDAD_LIQ_PREST C INNER JOIN DET_COMP_ENTIDAD_LIQ_PREST A ON A.TIPO_DOC_ENT_LIQ_PREST = C.TIPO_DOC_ENT_LIQ_PREST AND A.NRO_DOC_ENT_LIQ_PREST = C.NRO_DOC_ENT_LIQ_PREST AND A.NRO_LOTE_ENTIDAD_LIQ_PREST = C.NRO_LOTE_ENTIDAD_LIQ_PREST AND A.NRO_COMP = C.NRO_COMP AND C.ANO_PRESENTACION=".$_SESSION['anio']." AND C.MES_PRESENTACION=".$_SESSION['mes']." AND A.LIQUIDADO='S' AND A.NRO_DOC_ENT_LIQ_PREST=".$_SESSION['nrodnientidad']." AND A.ctrl_tasa_uso='S'";
+$comproResult = pg_query($con, $comproQuery);
+
+$comprorow = pg_fetch_array($comproResult, null, PGSQL_ASSOC);
 
 class PDF extends FPDF
 {
@@ -14,7 +17,7 @@ function Header()
 {
   $this->Image('img/logoicon.png',10,1,50,30,'png');
   $this->SetFont('Arial','B',20);
-  $this->Cell(200,10,utf8_decode('Detalle Liquidación Entidad'),0,'C','C');
+  $this->Cell(200,10,utf8_decode('Presentación Lote Prestador'),0,'C','C');
   $this->Ln('10');
   $this->SetFont('Arial','I',10);
   $this->Cell(200,5,utf8_decode('Entidad: '.$GLOBALS['prestador']),0,'C','R');
@@ -51,7 +54,7 @@ while ($rw = mysqli_fetch_array($res)) {
   $sql1  = ("/*" . MYSQLND_QC_ENABLE_SWITCH . "*/" . "SELECT * FROM detalles_ts1 WHERE CUIT='$cuit' AND MES_PRESENTACION='$mesperio' AND ANO_PRESENTACION='$anoperio' AND APELLIDO_RAZON_SOC='$rw[0]'");
   $result1 = mysqli_query($con, $sql1);
 
-  while ($row1 = mysqli_fetch_array($result1)) {
+
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(40,5,utf8_decode(substr($row1['APELLIDO_NOMBRE_AFILIADO'],0,25)),'0','C','L');
   $pdf->SetFont('Arial','',8);
@@ -63,26 +66,6 @@ while ($rw = mysqli_fetch_array($res)) {
   $pdf->Cell(25,5,utf8_decode(date_format($fechaprest, 'd-m-Y')),'0','C','C');
   $pdf->Cell(20,5,utf8_decode($row1['COD_PRESTACION']),'0','C','C');
   $pdf->Cell(10,5,utf8_decode($row1['PIEZA_DENTAL']),'0','C','C');
-  $pdf->Cell(15,5,utf8_decode($row1['IMPORTE_PRESTACION']),'0','C','R');
-  $pdf->Cell(23,5,utf8_decode(number_format($row1['MONTO_EXENTO']-$row1['MONTO_DEBITO_EXENTO']+$row1['MONTO_CREDITO_EXENTO'],2,'.',',')),'0','C','R');
-  $pdf->Cell(23,5,utf8_decode(number_format($row1['MONTO_GRAVADO']-$row1['MONTO_DEBITO_GRAVADO']+$row1['MONTO_CREDITO_GRAVADO'],2,'.',',')),'0','C','R');
-  if ($row1['MONTO_GRAVADO']>0) {
-    $pdf->Cell(21,5,utf8_decode(number_format(($row1['MONTO_GRAVADO']-$row1['MONTO_DEBITO_GRAVADO']+$row1['MONTO_CREDITO_GRAVADO'])*(0.105),2,'.',',')),'0','C','R');
-  }else{
-  $pdf->Cell(21,5,utf8_decode('0.00'),'0','C','R');
-  }
-  $pdf->SetFont('Arial','',6);
-  $pdf->Cell(50,5,utf8_decode(substr($row1['MOTIVO_DEBITO_PRESTADOR'].'.'.$row1['MOTIVO_CREDITO_PRESTADOR'],0,40)),'0','C','L');
-  $pdf->Ln('5');
-}
-include('calculo2.php');
-  $pdf->SetFont('Arial','',8);
-  $pdf->SetFillColor(230,230,230);
-  $pdf->Cell(146,5,utf8_decode('Total del profesional: '),'0','C','R', true);
-  $pdf->Cell(23,5,utf8_decode($row['exento']),'0','C','R', true);
-  $pdf->Cell(23,5,utf8_decode($row1['gravado']),'0','C','R', true);
-  $pdf->Cell(21,5,utf8_decode(number_format($row1['gravado']*(0.105),2,'.',',')),'0','C','R', true);
-  $pdf->Ln('5');
 }
 include('calculo.php');
   $pdf->SetFont('Arial','',8);

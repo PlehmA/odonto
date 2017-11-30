@@ -99,9 +99,11 @@ session_start(); ?>
   <tbody>
 <?php include '../includes/dbconnect.php';
 if (isset($_POST['submit'])) {
-  $mes = $_POST['mesperiodo'];
-  $anio = $_POST['anioperiodo'];
-  $comprobanteQuery = "SELECT C.nro_pto_vta_comp, C.tipo_comp, C.letra_comp, C.nro_comp, C.fecha_comp, C.mes_presentacion, C.ano_presentacion, C.monto_exento, C.monto_gravado, C.monto_iva, C.total FROM COMP_ENTIDAD_LIQ_PREST C INNER JOIN DET_COMP_ENTIDAD_LIQ_PREST A ON A.TIPO_DOC_ENT_LIQ_PREST = C.TIPO_DOC_ENT_LIQ_PREST AND A.NRO_DOC_ENT_LIQ_PREST = C.NRO_DOC_ENT_LIQ_PREST AND A.NRO_LOTE_ENTIDAD_LIQ_PREST = C.NRO_LOTE_ENTIDAD_LIQ_PREST AND A.NRO_COMP = C.NRO_COMP AND C.ANO_PRESENTACION=$anio AND C.MES_PRESENTACION=$mes AND A.LIQUIDADO='S' AND A.NRO_DOC_ENT_LIQ_PREST=".$_SESSION['nrodnientidad']." AND A.ctrl_tasa_uso='S'";
+
+  $_SESSION['mes'] = $_POST['mesperiodo'];
+  $_SESSION['anio'] = $_POST['anioperiodo'];
+
+  $comprobanteQuery = "SELECT C.nro_pto_vta_comp, C.tipo_comp, C.letra_comp, C.nro_comp, C.fecha_comp, C.mes_presentacion, C.ano_presentacion, C.monto_exento, C.monto_gravado, C.monto_iva, C.total FROM COMP_ENTIDAD_LIQ_PREST C INNER JOIN DET_COMP_ENTIDAD_LIQ_PREST A ON A.TIPO_DOC_ENT_LIQ_PREST = C.TIPO_DOC_ENT_LIQ_PREST AND A.NRO_DOC_ENT_LIQ_PREST = C.NRO_DOC_ENT_LIQ_PREST AND A.NRO_LOTE_ENTIDAD_LIQ_PREST = C.NRO_LOTE_ENTIDAD_LIQ_PREST AND A.NRO_COMP = C.NRO_COMP AND C.ANO_PRESENTACION=".$_SESSION['anio']." AND C.MES_PRESENTACION=".$_SESSION['mes']." AND A.LIQUIDADO='S' AND A.NRO_DOC_ENT_LIQ_PREST=".$_SESSION['nrodnientidad']." AND A.ctrl_tasa_uso='S'";
 
   $comprobanteResult = pg_query($con, $comprobanteQuery); ?>
  <?php $comprobantes = pg_fetch_array($comprobanteResult, null, PGSQL_ASSOC); 
