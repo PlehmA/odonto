@@ -49,14 +49,14 @@ session_start(); ?>
     <a class="nav-link" href="../carga-lote/">Carga de prestaciones</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="#">Consulta de comprobantes</a>
+    <a class="nav-link active" href="#">Consulta de comprobantes presentados</a>
   </li>
   <li class="nav-item mx-auto text-right">
     <a class="nav-link active text-danger" href="#" onclick="salirPag();">Salir</a>
   </li>
 </ul>
 <div class="card-header mt-3 text-center">
-  <h4>Consulta de comprobantes</h4>
+  <h4>Consulta de comprobantes presentados</h4>
 </div>
 
 <form class="mt-5 form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
@@ -82,7 +82,7 @@ session_start(); ?>
 </div>
 
 <div class="container">
-  <table class="table table-sm">
+  <table class="table table-sm mt-5">
   <thead>
     <tr>
       <th>Comprobante</th>
@@ -101,22 +101,49 @@ session_start(); ?>
 if (isset($_POST['submit'])) {
   $mes = $_POST['mesperiodo'];
   $anio = $_POST['anioperiodo'];
-  $comprobanteQuery = "SELECT * FROM DET_COMP_ENTIDAD_LIQ_PREST A INNER JOIN COMP_ENTIDAD_LIQ_PREST C ON A.TIPO_DOC_ENT_LIQ_PREST = C.TIPO_DOC_ENT_LIQ_PREST AND A.NRO_DOC_ENT_LIQ_PREST = C.NRO_DOC_ENT_LIQ_PREST AND A.NRO_LOTE_ENTIDAD_LIQ_PREST = C.NRO_LOTE_ENTIDAD_LIQ_PREST AND A.NRO_COMP = C.NRO_COMP AND C.ANO_PRESENTACION=$anio AND C.MES_PRESENTACION=$mes AND A.LIQUIDADO='S' AND A.NRO_DOC_ENT_LIQ_PREST=".$_SESSION['nrodnientidad']." AND A.CTRL_TASA_USO='S'";
+  $comprobanteQuery = "SELECT C.nro_pto_vta_comp, C.tipo_comp, C.letra_comp, C.nro_comp, C.fecha_comp, C.mes_presentacion, C.ano_presentacion, C.monto_exento, C.monto_gravado, C.monto_iva, C.total FROM COMP_ENTIDAD_LIQ_PREST C INNER JOIN DET_COMP_ENTIDAD_LIQ_PREST A ON A.TIPO_DOC_ENT_LIQ_PREST = C.TIPO_DOC_ENT_LIQ_PREST AND A.NRO_DOC_ENT_LIQ_PREST = C.NRO_DOC_ENT_LIQ_PREST AND A.NRO_LOTE_ENTIDAD_LIQ_PREST = C.NRO_LOTE_ENTIDAD_LIQ_PREST AND A.NRO_COMP = C.NRO_COMP AND C.ANO_PRESENTACION=$anio AND C.MES_PRESENTACION=$mes AND A.LIQUIDADO='S' AND A.NRO_DOC_ENT_LIQ_PREST=".$_SESSION['nrodnientidad']." AND A.ctrl_tasa_uso='S'";
+
   $comprobanteResult = pg_query($con, $comprobanteQuery); ?>
- <?php while ($comprobantes = pg_fetch_array($comprobanteResult, null, PGSQL_ASSOC)) { ?>
- <tr>
+ <?php $comprobantes = pg_fetch_array($comprobanteResult, null, PGSQL_ASSOC); 
+ if (pg_num_rows($comprobanteResult) >= 1) {
+ ?>
+  <tr>
    <td><?php echo $comprobantes['tipo_comp']." - ".$comprobantes['letra_comp']." ".str_pad($comprobantes['nro_pto_vta_comp'], 4, "0", STR_PAD_LEFT)."-".str_pad($comprobantes['nro_comp'], 8, "0", STR_PAD_LEFT); ?></td>
-   <td><?php echo $comprobantes['fecha_liquidacion']; ?></td>
-   <td><?php echo $comprobantes['mes_presentacion']; ?></td>
-   <td><?php echo $comprobantes['ano_presentacion']; ?></td>
-   <td><?php echo $comprobantes['total_liquidado_exento']; ?></td>
-   <td><?php echo $comprobantes['total_liquidado_gravado']; ?></td>
-   <td><?php echo $comprobantes['total_liquidado_iva']; ?></td>
-   <td><?php echo $comprobantes['total']; ?></td>
-   <td><button class="btn">Imprimir</button></td>
+   <td><?php echo $comprobantes['fecha_comp']; ?></td>
+   <td class="text-right"><?php echo $comprobantes['mes_presentacion']; ?></td>
+   <td class="text-right"><?php echo $comprobantes['ano_presentacion']; ?></td>
+   <td class="text-right"><?php echo $comprobantes['monto_exento']; ?></td>
+   <td class="text-right"><?php echo $comprobantes['monto_gravado']; ?></td>
+   <td class="text-right"><?php echo $comprobantes['monto_iva']; ?></td>
+   <td class="text-right"><?php echo $comprobantes['total']; ?></td>
+   <td class="text-right"><button class="btn btn-sm" onclick="mostrarComprobante();">Imprimir</button></td>
+  </tr> <!-- TERMINA LA CONDICION WHILE -->
+
+<?php } else { ?>
+   <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
-  <?php } ?> <!-- TERMINA LA CONDICION WHILE -->
- 
+<?php }
+}else { ?>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
 <?php } ?> <!-- TERMINA LA CONDICION IF -->
 <?php pg_close($con); ?>
  </tbody>
@@ -129,8 +156,7 @@ if (isset($_POST['submit'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
-    
-    
+ 
 <script>
   function recargarPag(){
     window.location.assign('index.php');
@@ -146,6 +172,10 @@ if (isset($_POST['submit'])) {
     window.location.assign('../logout.php');
   };
 </script>
-
+<script>
+  function mostrarComprobante(){
+    window.location.assign('comprobantes.php')
+  };
+</script>
   </body>
 </html>

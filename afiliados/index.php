@@ -34,7 +34,7 @@
     <a class="nav-link" href="../carga-lote/">Carga de prestaciones</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../comprobantes-show/">Consulta de comprobantes</a>
+    <a class="nav-link" href="../comprobantes-show/">Consulta de comprobantes presentados</a>
   </li>
   <li class="nav-item mx-auto text-right">
     <a class="nav-link active text-danger" href="#" onclick="salirPag();">Salir</a>
@@ -44,12 +44,12 @@
           <h4>Consulta de Afiliados</h4>
         </div>
       <br>
-    <div>
+    <div class="pl-5 ml-5">
       <form name="myForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" onsubmit="return validateForm()" class="form-inline">
         <label for="">Nro. Carnet: </label>
           <input type="text" name="carnet" class="form-control">
 
-        <label for="">Nro. Documento: </label>
+        <label for="" class="ml-5">Nro. Documento: </label>
           <input type="number" name="documento" class="form-control">
       
 
@@ -156,20 +156,6 @@
               Fecha Alta: <?php echo " <b>".$row['fecha_alta']."</b>"; ?> 
             </td>
       <td class="text-left"  style="font-size: 14px;">
-              <?php
-              /*$tipodoc = $row[27];
-              $consul = "SELECT * FROM tipo_documento WHERE id=$tipodoc";
-              $rs = pg_query($consul) or die('La consulta fallo: ' . pg_last_error());
-              $fila = pg_fetch_array($rs, null, PGSQL_NUM);
-              $id_documento = $fila[0];
-              $desc_doc = $fila[1];
-              
-            if ($tipodoc == $id_documento) {
-              echo " <b>".$desc_doc."</b>";
-            }else {
-              echo " <b>Documento no ingresado</b>";
-            }*/
-            ?>
             Tipo Documento: <b><?php echo $row['id_tipo_documento']; ?></b>
             <br>
             <br>
@@ -199,38 +185,5 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-    <script src="datatables.min.js"></script>
-    <script>
-      $(document).ready(function(){
-    $('#myTable').DataTable({
-       select: true,
-       responsive: true,
-       "language":{
-       "sProcessing":     "Procesando...",
-       "sLengthMenu":     "Mostrar _MENU_ registros",
-       "sZeroRecords":    "No se encontraron resultados",
-       "sEmptyTable":     "Ningún dato disponible en esta tabla",
-       "sInfo":           "",
-       "sInfoEmpty":      "",
-       "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-       "sInfoPostFix":    "",
-       "sSearch":         "Filtro:",
-       "sUrl":            "",
-       "sInfoThousands":  ",",
-       "sLoadingRecords": "Cargando...",
-       "oPaginate": {
-          "sFirst":    "Primero",
-          "sLast":     "Último",
-          "sNext":     "Siguiente",
-          "sPrevious": "Anterior"
-      },
-      "oAria": {
-          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-      }}
-    });
-});
-    </script>
-
   </body>
 </html>

@@ -52,7 +52,7 @@ session_start(); ?>
     <a class="nav-link active" href="#">Carga de prestaciones</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../comprobantes-show/">Consulta de comprobantes</a>
+    <a class="nav-link" href="../comprobantes-show/">Consulta de comprobantes presentados</a>
   </li>
   <li class="nav-item mx-auto text-right">
     <a class="nav-link active text-danger" href="#" onclick="salirPag();">Salir</a>
