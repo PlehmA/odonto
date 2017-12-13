@@ -61,11 +61,11 @@
       <table class="table table-sm table-striped" id="myTable">
       <thead>
           <tr>
-            <th>.</th>
-            <th>.</th>
-            <th>.</th>
-            <th>.</th>
-            <th>.</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
           </tr>
       </thead>
       <tbody>
@@ -144,7 +144,6 @@
               <br>
               <br>
                 Estado:  <?php if ($row['fecha_fin_de_vigencia'] == null) { echo " <b> Activo. </b>"; }else{echo " <b> No activo. </b>";} ?>
-                
               </td>
       <td class="text-left"  style="font-size: 14px;">
               Cobertura Odontologica:<b> NULL </b>
