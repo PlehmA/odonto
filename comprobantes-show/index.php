@@ -97,7 +97,7 @@ session_start(); ?>
     </tr>
   </thead>
   <tbody>
-<?php include '../includes/dbconnect.php';
+<?php include 'includes/dbconnect.php';
 if (isset($_POST['submit'])) {
 
   $_SESSION['mes'] = $_POST['mesperiodo'];
@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
  if (pg_num_rows($comprobanteResult) >= 1) {
  ?>
   <tr>
-   <td><?php echo $comprobantes['tipo_comp']." - ".$comprobantes['letra_comp']." ".str_pad($comprobantes['nro_pto_vta_comp'], 4, "0", STR_PAD_LEFT)."-".str_pad($comprobantes['nro_comp'], 8, "0", STR_PAD_LEFT); ?></td>
+   <td><?php echo $comprobantes['tipo_comp'].' - '.$comprobantes['letra_comp'].' '.str_pad($comprobantes['nro_pto_vta_comp'], 4, "0", STR_PAD_LEFT)."-".str_pad($comprobantes['nro_comp'], 8, "0", STR_PAD_LEFT); ?></td>
    <td><?php echo $comprobantes['fecha_comp']; ?></td>
    <td class="text-right"><?php echo $comprobantes['mes_presentacion']; ?></td>
    <td class="text-right"><?php echo $comprobantes['ano_presentacion']; ?></td>
@@ -118,7 +118,7 @@ if (isset($_POST['submit'])) {
    <td class="text-right"><?php echo $comprobantes['monto_gravado']; ?></td>
    <td class="text-right"><?php echo $comprobantes['monto_iva']; ?></td>
    <td class="text-right"><?php echo $comprobantes['total']; ?></td>
-   <td class="text-right"><button class="btn btn-sm" onclick="mostrarComprobante();">Imprimir</button></td>
+   <td class="text-right"><button class="btn btn-sm" onclick="mostrarComprobante();" >Imprimir</button></td>
   </tr> <!-- TERMINA LA CONDICION WHILE -->
 
 <?php } else { ?>
