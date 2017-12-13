@@ -143,7 +143,7 @@
           <b><?php echo $row['codigo_afiliado']; ?></b>
               <br>
               <br>
-                Estado:  <?php if ($row['fecha_fin_de_vigencia'] == null) { echo " <b> Activo </b>"; }else{echo " <b> Baja </b>";} ?>
+                Estado:  <?php if ($row['fecha_fin_de_vigencia'] == null) { echo " <b> Activo. </b>"; }else{echo " <b> No activo. </b>";} ?>
                 
               </td>
       <td class="text-left"  style="font-size: 14px;">

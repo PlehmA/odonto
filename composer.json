@@ -1,0 +1,6 @@
+{
+    "name": "vendor/odonto",
+    "description": "Es el paquete odonto full (?)",
+    "type": "library",
+    "require": {}
+}
