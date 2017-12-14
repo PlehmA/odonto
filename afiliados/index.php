@@ -46,6 +46,7 @@
       <br>
     <div class="pl-5 ml-5">
       <form name="myForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" onsubmit="return validateForm()" class="form-inline">
+        
         <label for="">Nro. Carnet: </label>
           <input type="text" name="carnet" class="form-control">
 
@@ -181,8 +182,7 @@
     </table>
 </div>
 
-    </div>
-
+</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

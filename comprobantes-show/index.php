@@ -34,7 +34,7 @@ session_start(); ?>
   <li class="nav-item">
     <a class="nav-link" href="../home/">Home</a>
   </li>
-    <?php if ($_SESSION['rol_usuario'] == 1) {
+<?php if ($_SESSION['rol_usuario'] == 1) {
       echo "<li class='nav-item'>";
       echo "<a class='nav-link' href='../afiliados/'>Consulta de afiliados</a>";
       echo "</li>";
@@ -176,7 +176,7 @@ if (isset($_POST['submit'])) {
 </script>
 <script>
   function mostrarComprobante(){
-    window.location.assign('comprobantes.php')
+    window.open('comprobantes.php')
   };
 </script>
   </body>
