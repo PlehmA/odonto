@@ -3,7 +3,7 @@ session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <title>Carga!</title>
+    <title>Carga</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -103,8 +103,8 @@ session_start(); ?>
 
           if (isset($_POST['submit'])) {
               if ($_POST['documento']=="" && $_POST['carnet']=="") {
-               echo "<br>";
-          echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert'>Ingrese al menos un DNI o número de carnet.</div>";
+          echo "<br>";
+          echo "<div class='alert alert-danger alert-dismissible fade show animated zoomIn' role='alert' data-dismiss='alert'>Ingrese al menos un DNI o número de carnet.</div>";
                                 
               }else {
                 $sql = "SELECT * FROM padron WHERE " .implode(" AND ", $where). " ORDER BY apellidos_nombres ASC";
@@ -195,10 +195,9 @@ $_SESSION['tipo_domicilio'] = $row['tipo_domicilio'];
 $_SESSION['proveedor_del_template_id'] = $row['proveedor_del_template_id'];
 
 if ($row[0] == null) {
-          echo "<script>alert('No se encuentra el afiliado!');</script>";
-          echo "<script>window.location.assign('index.php')</script>";
+          
           echo "<br>";
-          echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert'>Ingrese al menos un DNI o número de carnet.</div>";
+          echo "<div class='alert alert-danger alert-dismissible fade show text-center animated zoomIn' role='alert' data-dismiss='alert'>No se encuentra el afiliado.</div>";
              
 }else {
 ?>
@@ -234,7 +233,7 @@ if ($row[0] == null) {
               ?> 
     </div>
     <div class="col-sm">
-     Estado:  <?php if ($row['fecha_fin_de_vigencia'] == null) { echo " <b> Activo </b>"; }else{echo " <b> Baja </b>";} ?>
+     Estado:  <?php if ($row['fecha_fin_de_vigencia'] == null) { echo " <b> Activo. </b>"; }else{echo " <b> No activo. </b>";} ?>
     </div>
     <div class="col-sm">
       Localidad: <b><?php echo $row['localidad']; ?></b>
@@ -300,7 +299,7 @@ if ($row[0] == null) {
         }else {
 
           echo "<br>";
-          echo "<div class='alert alert-danger alert-dismissible fade show text-center animate zoomIn' role='alert' data-dismiss='alert'>¡El afiliado se encuentra No Activo!</div>";
+          echo "<div class='alert alert-danger alert-dismissible fade show text-center animated zoomIn' role='alert' data-dismiss='alert'>El afiliado se encuentra No Activo.</div>";
           echo "<center><button class='btn btn-outline-secondary' onclick='recargarPag();'>Recargar</button></center>";
         }
       }

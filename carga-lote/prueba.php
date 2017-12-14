@@ -115,7 +115,7 @@ $_SESSION['prestaobslogin'] = $presta['observaciones_login'];
     <div class="col-sm">
       <label>Tipo Matrícula:</label>
       <select name="tipomatric" id="tipomatric" required class="form-control">
-        <?php while ($fila = pg_fetch_array($resultado, null, PGSQL_ASSOC)) { ?>        
+        <?php while ($fila = pg_fetch_array($resultado, null, PGSQL_ASSOC)) { ?>
         <option value="<?php echo $fila['tipo_mat_efector']; ?>"><?php echo $fila['tipo_mat_efector']; ?></option>
         <?php } ?>
       </select>
