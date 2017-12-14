@@ -28,7 +28,7 @@
       echo "<a class='nav-link active' href='#'>Consulta de afiliados</a>";
       echo "</li>";
     }else {
-
+   
     } ?>
   <li class="nav-item">
     <a class="nav-link" href="../carga-lote/">Carga de prestaciones</a>
@@ -51,7 +51,6 @@
 
         <label for="" class="ml-5">Nro. Documento: </label>
           <input type="number" name="documento" class="form-control">
-      
 
         <input type="submit" class="ml-5 btn btn-outline-success" name="submit">
       </form>
@@ -76,43 +75,48 @@
       $where = array();
 
 
-          if(isset($_POST['documento']) && $_POST['documento']!="")
+          if(isset($_POST['submit']) && $_POST['documento']!="")
           {
 
             //$documento = $_POST['documento'];
 
           $where[] = "nro_documento = '".$_POST['documento']."'";
           }else{
-              echo "<script src='/javascripts/application.js' type='text/javascript' charset='utf-8' async defer>alert('Complete al menos un campo')</script>";
+              
           }
 
-          if(isset($_POST['carnet']) && $_POST['carnet']!="")
+          if(isset($_POST['submit']) && $_POST['carnet']!="")
             {
 
               //$carnet = $_POST['carnet'];
 
           $where[] = "codigo_afiliado = '".$_POST['carnet']."'";
           }else{
-                  echo "<script src='/javascripts/application.js' type='text/javascript' charset='utf-8' async defer>alert('Complete al menos un campo')</script>";
+          
           }
 
-          if (isset($_POST['submit'])) {
-              if ($_POST['documento']=="" && $_POST['carnet']=="") {
-                echo "<script>alert('Complete por lo menos un campo!');</script>";
-                echo "<script>window.location.assign('index.php')</script>";
-              }
-            
+ if (isset($_POST['submit'])) {
+   if ($_POST['documento']=="" && $_POST['carnet']=="") {
 
-        $sql = "SELECT * FROM padron WHERE " .implode(" AND ", $where). " ORDER BY apellidos_nombres ASC LIMIT 100";
+                     echo "<br>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show text-center animated zoomIn' role='alert' data-dismiss='alert'>Complete al menos un campo</div>";
+                   
+    }else{
+
+        $sql = "SELECT * FROM padron WHERE " .implode(" AND ", $where);
        
         $result = pg_query($sql) or die('La consulta fallo: ' . pg_last_error());
+        
+      if (pg_num_rows($result)==0) {
+
+             echo "<br>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show text-center animated zoomIn' role='alert' data-dismiss='alert'>No se encuentra el afiliado.</div>";
+
+          }else {
     
          while ($row = pg_fetch_array($result, null, PGSQL_BOTH)) { ?>
 
-         <div id="exampleAccordion" data-children=".item">
-                <div class="item">
-        <tr>
-                 
+    <tr>          
       <td class="text-left"  style="font-size: 14px;">
                                                     <!-- Apellido y Nombre Afiliado -->
         Apellido y Nombre:<br> 
@@ -172,7 +176,7 @@
         </tr>
                 </div>
               </div>
-        <?php } } ?>
+        <?php } } } } ?>
       </tbody>
     </table>
 </div>
