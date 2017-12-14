@@ -123,11 +123,11 @@ $createtabledb = "CREATE TABLE IF NOT EXISTS tmp_carga_prest_$prestacuit (
   fecha_carga timestamp with time zone DEFAULT current_timestamp,
   actualizado_por character varying(30) DEFAULT 'USER',
   pieza_dental character varying(3),
-  cara_mesial char(1) DEFAULT 'N'::bpchar,
-  cara_distal char(1) DEFAULT 'N'::bpchar,
-  cara_vestibular char(1) DEFAULT 'N'::bpchar,
-  cara_palatina_lingual char(1) DEFAULT 'N'::bpchar,
-  cara_incisal_oclusal char(1) DEFAULT 'N'::bpchar,
+  cara_mesial char(1) DEFAULT ''::bpchar,
+  cara_distal char(1) DEFAULT ''::bpchar,
+  cara_vestibular char(1) DEFAULT ''::bpchar,
+  cara_palatina_lingual char(1) DEFAULT ''::bpchar,
+  cara_incisal_oclusal char(1) DEFAULT ''::bpchar,
   id SERIAL PRIMARY KEY)";
 
 $createtablequery = pg_query($con, $createtabledb);

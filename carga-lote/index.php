@@ -21,6 +21,8 @@ session_start(); ?>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/themes/semantic.min.css"/>
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/themes/bootstrap.min.css"/>
+    <!-- Animate Css -->
+    <link rel="stylesheet" href="css/animate.css">
   </head>
   <body>
     <style>
@@ -101,16 +103,18 @@ session_start(); ?>
 
           if (isset($_POST['submit'])) {
               if ($_POST['documento']=="" && $_POST['carnet']=="") {
-                echo "<script>alert('Complete por lo menos un campo!');</script>";
-                echo "<script>window.location.assign('index.php')</script>";
-              }
-            
-
-        $sql = "SELECT * FROM padron WHERE " .implode(" AND ", $where). " ORDER BY apellidos_nombres ASC";
+               echo "<br>";
+          echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert'>Ingrese al menos un DNI o número de carnet.</div>";
+                                
+              }else {
+                $sql = "SELECT * FROM padron WHERE " .implode(" AND ", $where). " ORDER BY apellidos_nombres ASC";
        
         $result = pg_query($sql) or die('No se encontraron resultados');
     
          $row = pg_fetch_array($result, null, PGSQL_BOTH);
+            
+
+        
 
 $_SESSION['id'] = $row['id'];
 
@@ -193,6 +197,9 @@ $_SESSION['proveedor_del_template_id'] = $row['proveedor_del_template_id'];
 if ($row[0] == null) {
           echo "<script>alert('No se encuentra el afiliado!');</script>";
           echo "<script>window.location.assign('index.php')</script>";
+          echo "<br>";
+          echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert'>Ingrese al menos un DNI o número de carnet.</div>";
+             
 }else {
 ?>
 
@@ -221,6 +228,7 @@ if ($row[0] == null) {
               $cumpleanos = new DateTime($filita[0]);
               $actual = new DateTime();
               $anios = $actual->diff($cumpleanos);
+
               $_SESSION['edad'] = $anios->y;
               echo "Edad: <b>".$anios->y."</b>";
               ?> 
@@ -290,11 +298,13 @@ if ($row[0] == null) {
               <div class="mx-auto text-center"><a href="prueba.php" class="btn">Cargar prestaciones</a></div>
         <?php 
         }else {
-          echo "<script>alert('El afiliado se encuentra dado de Baja!');</script>";
+
+          echo "<br>";
+          echo "<div class='alert alert-danger alert-dismissible fade show text-center animate zoomIn' role='alert' data-dismiss='alert'>¡El afiliado se encuentra No Activo!</div>";
           echo "<center><button class='btn btn-outline-secondary' onclick='recargarPag();'>Recargar</button></center>";
         }
       }
-    } ?>
+    }} ?>
 
 <center>
   <div class="btn-group mt-5">

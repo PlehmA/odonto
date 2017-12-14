@@ -28,6 +28,18 @@
       body {
         margin-bottom: 75px;
       }
+      .swal-overlay {
+          background-color: rgba(255, 50, 22, 0.50);
+        }
+        .swal-text {
+            background-color: #FEFAE3;
+            padding: 17px;
+            border: 1px solid #F0E1A1;
+            display: block;
+            margin: 22px;
+            text-align: center;
+            color: #61534e;
+          }
     </style>
     <?php session_start();
         include '../includes/dbconnect.php'; ?>
@@ -68,7 +80,7 @@
         Edad: <b><?php echo $_SESSION['edad'];  ?></b>
       </div>
       <div class="col-sm-4">
-        
+        Tipo de afiliado: <b><?php echo 'aca va el tipo de afi'  ?></b>
       </div>
     </div>
   </div>
@@ -109,7 +121,7 @@
     </div>
 <div class="row">
   <div class="col-sm">
-      <label>Nro. Matrícula: </label> <input type='number' name='nromatricpres' id="nromatricpres" class="form-control" pattern="[0-9]{1,100}" tittle="Ingrese solo numeros sin caracteres especiales">
+      <label>Nro. Matrícula: </label> <input type='number' name='nromatricpres' id="nromatricpres" class="form-control" pattern="[0-9]{1,100}" tittle="Ingrese solo numeros sin caracteres especiales" placeholder="Del prescriptor...">
   </div>
   <?php 
   $resultado = pg_query($con, "SELECT tipo_mat_efector FROM mat_efector GROUP BY tipo_mat_efector ORDER BY tipo_mat_efector ASC"); ?>
@@ -152,7 +164,6 @@
       <th>Fecha de la prestación</th>
       <th>Código</th>
       <th>Descripción</th>
-      <th>Cantidad</th>
       <th>Pieza</th>
       <th>Cara D</th>
       <th>Cara I/O</th>
@@ -189,7 +200,6 @@
           $codrow = pg_fetch_assoc($codresult);
           echo $codrow['descripcion'];
          ?></td>
-        <td><?php echo $afirow1['ctd_prestacion']; ?></td>
         <td><?php echo $afirow1['pieza_dental']; ?></td>
         <td><?php echo $afirow1['cara_distal']; ?></td>
         <td><?php echo $afirow1['cara_incisal_oclusal']; ?></td>
@@ -211,17 +221,16 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
         <td class="w-25"></td>
         <td></td>
       </tr>
       <?php } ?>
     <tr>
-      <td><input type="date" class="form-control" value="<?php date_default_timezone_set('America/Argentina/Buenos_Aires'); echo date('Y-m-d'); ?>" name="fechaprestacion" id="fechaprestacion"></td>
+      <td><input type="date" class="form-control" value="<?php date_default_timezone_set('America/Argentina/Buenos_Aires'); echo date('Y-m-d'); ?>" name="fechaprestacion" id="fechaprestacion" max="<?php echo date('Y-m-d'); ?>" ></td>
       <td><input type="text" class="form-control" id="bus" name="codigoprest" onkeyup="loadXMLDoc()" autocomplete="off" required placeholder="Ej... 01.01"></td>
       <td class="w-25"><div id="myDiv" class="text-center"></div></td>
-      <td><input type="number" id="cantidad" class="form-control" name="cantidad" placeholder="1"></td>
-      <td><input type="text" id="piezanum" class="form-control" name="piezanum"></td>
+      <input type="hidden" name="cantidad" value="1">
+      <td><input type="text" id="piezanum" class="form-control" name="piezanum" placeholder="Numero de pieza"></td>
       <td><input type="checkbox" id="carad" class="custom-checkbox" name="carad" value="S"></td>
       <td><input type="checkbox" id="caraio" class="custom-checkbox" name="caraio" value="S"></td>
       <td><input type="checkbox" id="caram" class="custom-checkbox" name="caram" value="S"></td>
@@ -234,7 +243,6 @@
 </table>
 </div>
 </form>
-
 <div class="mx-auto text-center">
   <a href="../index.php"><button class="btn">Volver</button></a>
 </div>
@@ -247,6 +255,7 @@
     <script type="text/javascript" src="../js/ajax.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
     <script src="https://use.fontawesome.com/41b092bc8b.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
     function showContent() {
         element = document.getElementById("content");

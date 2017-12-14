@@ -65,7 +65,7 @@
 				Edad: <b><?php echo $_SESSION['edad'];  ?></b>
 			</div>
 			<div class="col-sm-4">
-				
+				Tipo Afiliado: <b><?php echo 'Aca va el tipo de afi'  ?></b>
 			</div>
 		</div>
 	</div>
@@ -132,7 +132,8 @@ if ($matriculaefec = pg_num_rows($resultefector) >= 1) {
       $_SESSION['matricula'] = $_POST['nromatric'];
       echo "<script>window.location.assign('carga-prestaciones/index.php');</script>";
     }else{
-      echo "<script>alert('Ingrese otra matricula o comuniquese al 011-4811-5555.')</script>";
+      echo "<br>";
+      echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert'>Ingrese otra matricula o comuniquese al 011-4811-5555.</div>";
     }
  }
 
@@ -150,6 +151,7 @@ if ($matriculaefec = pg_num_rows($resultefector) >= 1) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/ajax.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
     function showContent() {
         element = document.getElementById("content");
@@ -162,5 +164,6 @@ if ($matriculaefec = pg_num_rows($resultefector) >= 1) {
         }
     }
 </script>
+
   </body>
 </html>

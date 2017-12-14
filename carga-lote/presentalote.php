@@ -13,11 +13,6 @@ $result = pg_query($con, $sql);
 
 while ($row = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 
-
-
-
-
-
 $tipoDocEntidad = $row['tipo_doc_ent'];
 $numeroDocEntidad = $row['nro_doc_ent'];
 $tipoDocPrestador = $row['tipo_doc_prestador'];
