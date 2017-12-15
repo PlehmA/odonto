@@ -65,32 +65,32 @@ $piezanum = $_POST['piezanum'];
 if (isset($_POST['carad']) && $_POST['carad'] == "S") {
   $carad = 'S';
 }else {
-  $carad = 'N';
+  $carad = '';
 }
 if (isset($_POST['caraio']) && $_POST['caraio'] == "S") {
   $caraio = 'S';
 }else {
-  $caraio = 'N';
+  $caraio = '';
 }
 if (isset($_POST['caram']) && $_POST['caram'] == "S") {
   $caram = 'S';
 }else {
-  $caram = 'N';
+  $caram = '';
 }
 if (isset($_POST['carapl']) && $_POST['carapl'] == "S") {
   $carapl = 'S';
 }else {
-  $carapl = 'N';
+  $carapl = '';
 }
 if (isset($_POST['carav']) && $_POST['carav'] == "S") {
   $carav = 'S';
 }else {
-  $carav = 'N';
+  $carav = '';
 }
 if (isset($_POST['check']) && $_POST['check'] == "S") {
   $derivado = 'S';
 }else {
-  $derivado = 'N';
+  $derivado = '';
 }
 
 
@@ -138,6 +138,9 @@ if ($statement == true) {
   echo "<script>alert('Carga correcta');</script>";
   //header('Location: carga-prestaciones/index.php');
   echo "<script>window.location.assign('carga-prestaciones/index.php')</script>";
+  echo "<br>";
+  echo "<div class='alert alert-sucess alert-dismissible fade show text-center animated zoomIn' role='alert' data-dismiss='alert'>Carga correcta</div>";
+
 }
 
 

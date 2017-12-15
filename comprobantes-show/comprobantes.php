@@ -97,7 +97,7 @@ $pdf->AddPage();
   $pdf->Cell(25,10,utf8_decode('Fecha realiza'),'T','C','C', true);
   $pdf->Cell(35,10,utf8_decode('Codigo prestación'),'T','C','C',true);
   $pdf->Cell(15,10,utf8_decode('Pieza'),'T','C','C',true);
-  $pdf->MultiCell(30,5,utf8_decode('           Cara          M   D   V   P/L   I/O'),'T','C',true);
+  $pdf->MultiCell(28,5,utf8_decode('          Cara         M   D   V  P/L I/O'),'T','C',true);
 
   while ($comprorow = pg_fetch_array($comproResult, null, PGSQL_ASSOC)) {
   $pdf->SetFont('Arial','',7); 
@@ -110,7 +110,7 @@ $pdf->AddPage();
   $pdf->Cell(5,5,utf8_decode($comprorow['cara_distal']),0,'C','C');
   $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_vestibular']),0,'C','C');
   $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_palatina_lingual']),0,'C','C');
-  $pdf->Cell(10.2,5,utf8_decode($comprorow['cara_incisal_oclusal']),0,'C','C');
+  $pdf->Cell(8,5,utf8_decode($comprorow['cara_incisal_oclusal']),0,'C','C');
   $pdf->Ln('5');
 
 }

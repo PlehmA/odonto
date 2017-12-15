@@ -243,9 +243,9 @@
 </table>
 </div>
 </form>
-<div class="mx-auto text-center">
-  <a href="../index.php"><button class="btn">Volver</button></a>
-</div>
+    <div class="mx-auto text-center">
+      <a href="../index.php"><button class="btn">Volver</button></a>
+  </div>
 </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
