@@ -18,8 +18,8 @@ if ((!isset($_POST['usuario'])) || (!isset($_POST['password']))) {
 
 include ('includes/dbconnect.php');
 
-	$username = $_POST['usuario'];
-	$contra = $_POST['password'];
+	$username = htmlentities($_POST['usuario']);
+	$contra = htmlentities($_POST['password']);
 
 $sql = "SELECT * FROM users_entidades WHERE nombre='$username' AND clave='$contra'";
 
