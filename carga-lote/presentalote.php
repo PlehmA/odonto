@@ -117,6 +117,7 @@ $query = "INSERT INTO det_lote_entidad_liq_prest
 	'$fecha_carga')";
 	$insert = pg_query($con, $query);
 }
+echo "<script>window.open('compropresenta.php')</script>";
 
 $droptabledb = "DROP TABLE IF EXISTS tmp_carga_prest_".$_SESSION['cuit'];
 
