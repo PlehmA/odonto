@@ -68,6 +68,8 @@ $fill = pg_num_rows($result);
 	}
 
 	pg_close($con);
-
+unset($result);
+unset($row);
+unset($fill);
 }
 ?>

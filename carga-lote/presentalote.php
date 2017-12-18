@@ -121,7 +121,7 @@ $query = "INSERT INTO det_lote_entidad_liq_prest
 $droptabledb = "DROP TABLE IF EXISTS tmp_carga_prest_".$_SESSION['cuit'];
 
 $droptablequery = pg_query($con, $droptabledb) or die(pg_last_error());
-
-echo "<script>alert('Lote presentado correctamente')</script>";
 echo "<script>window.location.assign('index.php')</script>";
+echo "<script>alert('Lote presentado correctamente')</script>";
+
 ?>

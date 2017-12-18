@@ -128,7 +128,7 @@
   <div class="col-sm">
         <label>Tipo Matrícula: </label> 
         <select name="tipomatricpres" id="tipomatricpres" required class="form-control">
-        <?php while ($fila = pg_fetch_array($resultado, null, PGSQL_ASSOC)) { ?>        
+        <?php while ($fila = pg_fetch_array($resultado, null, PGSQL_ASSOC)) { ?> 
         <option value="<?php echo $fila['tipo_mat_efector']; ?>"><?php echo $fila['tipo_mat_efector']; ?></option>
         <?php } ?>
       </select>
@@ -201,11 +201,11 @@
           echo $codrow['descripcion'];
          ?></td>
         <td><?php echo $afirow1['pieza_dental']; ?></td>
-        <td><?php echo $afirow1['cara_distal']; ?></td>
-        <td><?php echo $afirow1['cara_incisal_oclusal']; ?></td>
-        <td><?php echo $afirow1['cara_mesial']; ?></td>
-        <td><?php echo $afirow1['cara_palatina_lingual']; ?></td>
-        <td><?php echo $afirow1['cara_vestibular']; ?></td>
+        <td><?php if ($afirow1['cara_distal'] == 'S'){echo "&#10004;";}else{echo $afirow1['cara_distal'];  }?></td>
+        <td><?php if ($afirow1['cara_incisal_oclusal'] == 'S'){echo "&#10004;";}else{echo $afirow1['cara_incisal_oclusal'];} ?></td>
+        <td><?php if ($afirow1['cara_mesial'] == 'S'){echo "&#10004;";}else{echo $afirow1['cara_mesial'];} ?></td>
+        <td><?php if ($afirow1['cara_palatina_lingual'] == 'S'){echo "&#10004;";}else{echo $afirow1['cara_palatina_lingual'];} ?></td>
+        <td><?php if ($afirow1['cara_vestibular'] == 'S'){echo "&#10004;";}else{echo $afirow1['cara_vestibular'];} ?></td>
         <td class="w-25"><?php echo $afirow1['observaciones']; ?></td>
         <td></td>
       </tr>

@@ -89,16 +89,15 @@
   				<td><?php echo $row['nro_carnet_afiliado']; ?></td>
   				<td><?php echo $row['convenio']; ?></td>
   				<td><?php echo $row['pieza_dental']; ?></td>
-  				<td><?php echo $row['cara_mesial']; ?></td>
-  				<td><?php echo $row['cara_distal']; ?></td>
-  				<td><?php echo $row['cara_vestibular']; ?></td>
-  				<td><?php echo $row['cara_palatina_lingual']; ?></td>
-  				<td><?php echo $row['cara_incisal_oclusal']; ?></td>
+  				<td><?php if ($row['cara_mesial'] == 'S'){echo "&#10004;";}else{echo $row['cara_mesial'];} ?></td>
+  				<td><?php if ($row['cara_distal'] == 'S'){echo "&#10004;";}else{echo $row['cara_distal'];  }?></td>
+  				<td><?php if ($row['cara_vestibular'] == 'S'){echo "&#10004;";}else{echo $row['cara_vestibular'];} ?></td>
+  				<td><?php if ($row['cara_palatina_lingual'] == 'S'){echo "&#10004;";}else{echo $row['cara_palatina_lingual'];} ?></td>
+  				<td><?php if ($row['cara_incisal_oclusal'] == 'S'){echo "&#10004;";}else{echo $row['cara_incisal_oclusal'];} ?></td>
   				<td><?php echo $row['cod_prestacion']; ?></td>
   				<td><?php echo $row['ctd_prestacion']; ?></td>
   				<td><?php $date = date_create($row['fecha_prestacion']);
                     echo date_format($date, 'd/m/Y'); ?></td>
-  				
   				<td><a href="#" onclick="deletePrestacion('<?php echo $row[0]; ?>');"><button class="btn" ><i class="fa fa-ban" aria-hidden="true"></i></button></a></td>
   			</tr>
   			<?php } ?>
