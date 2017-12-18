@@ -100,36 +100,37 @@ $pdf->AddPage();
   $pdf->MultiCell(28,5,utf8_decode('          Cara         M   D   V  P/L I/O'),'T','C',true);
 
   while ($comprorow = pg_fetch_array($comproResult, null, PGSQL_ASSOC)) {
-  $pdf->SetFont('Arial','',7); 
-  $pdf->Cell(80,5,utf8_decode($comprorow['apellido_nombre_afiliado']),0,'C','L');
+  $pdf->SetFont('Arial','',7);
+  $pdf->SetDrawColor(230,230,230);
+  $pdf->Cell(80,5,utf8_decode($comprorow['apellido_nombre_afiliado']),'B','C','L');
   $pdf->SetFont('Arial','',9);
-  $pdf->Cell(25,5,utf8_decode($fechaPrest),0,'C','C');
-  $pdf->Cell(35,5,utf8_decode($comprorow['cod_prestacion']),0,'C','C');
-  $pdf->Cell(15.3,5,utf8_decode($comprorow['pieza_dental']),0,'C','C');
+  $pdf->Cell(25,5,utf8_decode($fechaPrest),'B','C','C');
+  $pdf->Cell(35,5,utf8_decode($comprorow['cod_prestacion']),'B','C','C');
+  $pdf->Cell(15.3,5,utf8_decode($comprorow['pieza_dental']),'B','C','C');
   if ($comprorow['cara_mesial'] == 'N') {
-    $pdf->Cell(5,5,utf8_decode(''),0,'C','C');
+    $pdf->Cell(5,5,utf8_decode(''),'B','C','C');
   }else {
-    $pdf->Cell(5,5,utf8_decode($comprorow['cara_mesial']),0,'C','C');
+    $pdf->Cell(5,5,utf8_decode($comprorow['cara_mesial']),'B','C','C');
   }
   if ($comprorow['cara_distal'] == 'N') {
-    $pdf->Cell(5,5,utf8_decode(''),0,'C','C');
+    $pdf->Cell(5,5,utf8_decode(''),'B','C','C');
   }else {
-    $pdf->Cell(5,5,utf8_decode($comprorow['cara_distal']),0,'C','C');
+    $pdf->Cell(5,5,utf8_decode($comprorow['cara_distal']),'B','C','C');
   }
   if ($comprorow['cara_vestibular'] == 'N') {
-    $pdf->Cell(5.2,5,utf8_decode(''),0,'C','C');
+    $pdf->Cell(5.2,5,utf8_decode(''),'B','C','C');
   }else {
-    $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_vestibular']),0,'C','C');
+    $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_vestibular']),'B','C','C');
   }
   if ($comprorow['cara_palatina_lingual'] == 'N') {
-    $pdf->Cell(5.2,5,utf8_decode(''),0,'C','C');
+    $pdf->Cell(5.2,5,utf8_decode(''),'B','C','C');
   }else {
-    $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_palatina_lingual']),0,'C','C');
+    $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_palatina_lingual']),'B','C','C');
   }
   if ($comprorow['cara_incisal_oclusal'] == 'N') {
-     $pdf->Cell(8,5,utf8_decode(''),0,'C','C');
+     $pdf->Cell(8,5,utf8_decode(''),'B','C','C');
   }else {
-     $pdf->Cell(8,5,utf8_decode($comprorow['cara_incisal_oclusal']),0,'C','C');
+     $pdf->Cell(8,5,utf8_decode($comprorow['cara_incisal_oclusal']),'B','C','C');
   }
  
   $pdf->Ln('5');
