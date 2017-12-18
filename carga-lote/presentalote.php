@@ -47,7 +47,7 @@ $fecha_carga = $row['fecha_carga'];
 
 $query = "INSERT INTO det_lote_entidad_liq_prest
 	(tipo_doc_ent, 
-	nro_doc_ent, 
+	nro_doc_ent,
 	tipo_doc_prestador, 
 	nro_doc_prestador, 
 	nro_carnet_afiliado, 

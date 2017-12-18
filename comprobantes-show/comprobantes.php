@@ -106,11 +106,32 @@ $pdf->AddPage();
   $pdf->Cell(25,5,utf8_decode($fechaPrest),0,'C','C');
   $pdf->Cell(35,5,utf8_decode($comprorow['cod_prestacion']),0,'C','C');
   $pdf->Cell(15.3,5,utf8_decode($comprorow['pieza_dental']),0,'C','C');
-  $pdf->Cell(5,5,utf8_decode($comprorow['cara_mesial']),0,'C','C');
-  $pdf->Cell(5,5,utf8_decode($comprorow['cara_distal']),0,'C','C');
-  $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_vestibular']),0,'C','C');
-  $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_palatina_lingual']),0,'C','C');
-  $pdf->Cell(8,5,utf8_decode($comprorow['cara_incisal_oclusal']),0,'C','C');
+  if ($comprorow['cara_mesial'] == 'N') {
+    $pdf->Cell(5,5,utf8_decode(''),0,'C','C');
+  }else {
+    $pdf->Cell(5,5,utf8_decode($comprorow['cara_mesial']),0,'C','C');
+  }
+  if ($comprorow['cara_distal'] == 'N') {
+    $pdf->Cell(5,5,utf8_decode(''),0,'C','C');
+  }else {
+    $pdf->Cell(5,5,utf8_decode($comprorow['cara_distal']),0,'C','C');
+  }
+  if ($comprorow['cara_vestibular'] == 'N') {
+    $pdf->Cell(5.2,5,utf8_decode(''),0,'C','C');
+  }else {
+    $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_vestibular']),0,'C','C');
+  }
+  if ($comprorow['cara_palatina_lingual'] == 'N') {
+    $pdf->Cell(5.2,5,utf8_decode(''),0,'C','C');
+  }else {
+    $pdf->Cell(5.2,5,utf8_decode($comprorow['cara_palatina_lingual']),0,'C','C');
+  }
+  if ($comprorow['cara_incisal_oclusal'] == 'N') {
+     $pdf->Cell(8,5,utf8_decode(''),0,'C','C');
+  }else {
+     $pdf->Cell(8,5,utf8_decode($comprorow['cara_incisal_oclusal']),0,'C','C');
+  }
+ 
   $pdf->Ln('5');
 
 }
