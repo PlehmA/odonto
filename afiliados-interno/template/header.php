@@ -1,4 +1,7 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-3">
+<div class="card card-header capitalize">
+  <?php echo 'Entidad: ',$_SESSION['prestador'], "<br\>"; ?>
+</div>
   <div class="card card-img">
     <div class="img-thumbnail">
       <div class="row">
