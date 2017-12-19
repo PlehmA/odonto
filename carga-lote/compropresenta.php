@@ -19,7 +19,6 @@ $datePrest = date_create($loterow['fecha_prestacion']);
 $fechaPrest = date_format($datePrest, 'd/m/Y');
 $periodo = $loterow['mes_presentacion']."/".$loterow['ano_presentacion'];
 $lote = $loterow['nro_lote_entidad_liq_prest'];
-$total = $loterow['total'];
 
 class PDF extends FPDF
 {
@@ -46,8 +45,6 @@ function Header()
   $this->Cell(62,5,'',0,'C','R');
   $this->Cell(15,5,utf8_decode('Periodo: '),0,'C','L');
   $this->Cell(35,5,utf8_decode(''.$GLOBALS['periodo']),0,'C','L');
-  $this->Cell(15,5,utf8_decode('Total:'),0,'C','L');
-  $this->Cell(35,5,utf8_decode($GLOBALS['total']),0,'C','L');
 }
 function Footer()
 {
