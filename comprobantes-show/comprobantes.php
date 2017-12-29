@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 require('fpdf/fpdf.php');
 
 include ('includes/dbconnect.php');

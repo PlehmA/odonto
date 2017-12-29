@@ -4,6 +4,14 @@ require('fpdf/fpdf.php');
 include ('includes/dbconnect.php');
 
 session_start();
+
+$periodoConsul = pg_query($con, "SELECT * FROM periodo");
+$periodo = pg_fetch_assoc($periodoConsul);
+
+$mesperio = $periodo['mes_presentacion'];
+$anioperio = $periodo['anio_presentacion'];
+
+
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 $loteSql = "SELECT * FROM tmp_carga_prest_".$_SESSION['cuit'];
@@ -13,18 +21,17 @@ $loteResult = pg_query($con, $loteSql);
 $loterow = pg_fetch_array($loteResult, null, PGSQL_ASSOC);
 
 $entidad = $_SESSION['prestador'];
-$date = date_create($loterow['fecha_comp']);
-$fecha = date_format($date, 'd/m/Y');
 $datePrest = date_create($loterow['fecha_prestacion']);
 $fechaPrest = date_format($datePrest, 'd/m/Y');
-$periodo = $loterow['mes_presentacion']."/".$loterow['ano_presentacion'];
-$lote = $loterow['nro_lote_entidad_liq_prest'];
+$periodo = $mesperio.'/'.$anioperio;
+$lote = 'nrolote';
 
 class PDF extends FPDF
 {
 // Cabecera de pÃ¡gina
 function Header()
 {
+    
   $this->Image('img/logoicon.png',9,5,35,20,'png');
   $this->SetFont('Arial','B',20);
   $this->Cell(160,10,utf8_decode('PresentaciÃ³n Lote Prestador'),0,'C','R');
@@ -37,8 +44,6 @@ function Header()
   $this->SetFont('Arial','I',10);
   $this->Ln('5');
   $this->Cell(62,5,'',0,'C','R');
-  $this->Cell(15,5,utf8_decode('Fecha:'),0,'C','L');
-  $this->Cell(35,5,utf8_decode(''.$GLOBALS['fecha']),0,'C','L');
   $this->Cell(15,5,utf8_decode('NÂº Lote:'),0,'C','L');
   $this->Cell(35,5,utf8_decode('' .$GLOBALS['lote']),0,'C','L');
   $this->Ln('5');
@@ -48,12 +53,12 @@ function Header()
 }
 function Footer()
 {
-    // PosiciÃ³n: a 1,5 cm del final
+    // Posición: a 1,5 cm del final
     $this->SetY(-15);
     // Arial italic 8
     $this->SetFont('Arial','I',8);
-    // NÃºmero de pÃ¡gina
-    $this->Cell(40,10,utf8_decode('PÃ¡gina ').$this->PageNo().'/{nb}',0,0,'C');
+    // Número de página
+    $this->Cell(40,10,utf8_decode('Página ').$this->PageNo().'/{nb}',0,0,'C');
     $this->Cell(40,10,utf8_decode('IMPRESO POR '.$GLOBALS['entidad']),0,0,'C');
 
 }
