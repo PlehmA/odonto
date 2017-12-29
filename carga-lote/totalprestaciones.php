@@ -104,7 +104,6 @@
   		</tbody>
   	</table>
 
-  	
 </div>
 <div class="container">
   <div class="cuerpo" id="botonVolver">
